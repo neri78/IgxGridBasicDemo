@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { employeesData } from './localData';
+import { ApiServerService, Customer } from '../service/api-server.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,14 +12,23 @@ import { employeesData } from './localData';
 export class IgxGrid1Component implements OnInit {
   public localData: any[];
   title = 'igxGrid1';
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(private apiServerService: ApiServerService) { }
 
   ngOnInit() {
-    this.localData = employeesData;
+    // コメントアウト
+    // this.localData = employeesData;
+    // APIServerを呼び出し、顧客データを取得
+    this.subscription = this.apiServerService.getCustomers()
+    .subscribe( (data: Customer[]) => {
+      this.localData = data;
+    });
   }
 
   ngOnDestory() {
-
+    if (this.subscription !== undefined) {
+      this.subscription.unsubscribe();
+    }
   }
 }

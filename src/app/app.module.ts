@@ -8,6 +8,9 @@ import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleM
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { IgxGrid1Component } from './igxgrid1/igxgrid1.component';
+import { ApiServerService } from './service/api-server.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +27,10 @@ import { IgxGrid1Component } from './igxgrid1/igxgrid1.component';
     IgxNavbarModule,
     IgxLayoutModule,
     IgxRippleModule,
-    IgxGridModule
+    IgxGridModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
